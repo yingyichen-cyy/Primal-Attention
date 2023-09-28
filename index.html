@@ -1,0 +1,248 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Primal-Attention</title>
+  <meta name="description" content="Project page for Primal-Attention: Self-attention through Asymmetric Kernel SVD in Primal Representation.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta charset="utf-8">
+
+  <!--Facebook preview-->
+  <meta property="og:image" content="https://imagine.enpc.fr/~monniert/DTIClustering/thumbnail.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="400">
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://imagine.enpc.fr/~monniert/DTIClustering/"/>
+  <meta property="og:title" content="DTI Clustering"/>
+  <meta property="og:description" content="Project page for Deep Transformation-Invariant Clustering."/>
+
+  <!--Twitter preview-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DTI Clustering" />
+  <meta name="twitter:description" content="Project page for Deep Transformation-Invariant Clustering."/>
+  <meta name="twitter:image" content="https://imagine.enpc.fr/~monniert/DTIClustering/thumbnail_twitter.png">
+
+  <!--Style-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container" style="text-align:center; padding:2rem 15px">
+  <div class="row" style="text-align:center">
+    <h1>Primal-Attention: Self-attention through Asymmetric Kernel SVD in Primal Representation</h1>
+    <h4 style="font-size:23.5px"><font color=#27d13a>NeurIPS 2023</font></h4>
+  </div>
+  <div class="row" style="text-align:center">
+    <div class="col-xs-0 col-md-2"></div>
+    <div class="col-xs-12 col-md-8">
+      <h4>
+        <a href="https://yingyichen-cyy.github.io/"><nobr>Yingyi Chen</nobr></a><sup>*</sup> &emsp;
+        <a href="https://www.esat.kuleuven.be/stadius/person.php?id=2167"><nobr>Qinghua Tao</nobr></a><sup>*</sup> &emsp;
+        <a href="https://www.esat.kuleuven.be/stadius/person.php?id=2312"><nobr>Francesco Tonin</nobr></a> &emsp;
+        <a href="https://www.esat.kuleuven.be/sista/members/suykens.html"><nobr>Johan A.K. Suykens</nobr></a>
+        
+      </h4>
+      <h4 style="font-size:18px">ESAT-STADIUS, KU Leuven, Belgium &emsp;</h4>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="text-align:center; padding:1rem">
+  <img src="resrc/pipeline.jpg" alt="pipeline.jpg" class="text-center" style="width: 95%; max-width: 1100px">
+  <br/>
+  <br/>
+  <p><b>An illustration of Primal-Attention and canonical self-attention.</b> 
+  Left: in <i>canonical self-attention</i>, the asymmetric attention matrix
+  <img src="http://latex.codecogs.com/svg.latex?K" alt="K" border="0"/>
+  can be induced by two feature maps
+  <img src="http://latex.codecogs.com/svg.latex?\phi_q" alt="\phi_q" border="0"/>,
+  <img src="http://latex.codecogs.com/svg.latex?\phi_k" alt="\phi_k" border="0"/>
+  through kernel trick from RKBS. 
+  The values <img src="http://latex.codecogs.com/svg.latex?v(X)" alt="v(X)" border="0"/>
+  serve as the dual variables projecting the kernel matrix
+  <img src="http://latex.codecogs.com/svg.latex?K" alt="K" border="0"/>
+  to the attention output. 
+  The time and space complexity are 
+  <img src="http://latex.codecogs.com/svg.latex?\mathcal{O}(N^2d_v)" alt="\mathcal{O}(N^2d_v)" border="0"/>
+  and 
+  <img src="http://latex.codecogs.com/svg.latex?\mathcal{O}(N^2+N d_v)" alt="\mathcal{O}(N^2+N d_v)" border="0"/>.
+  Right: in our <i>Primal-Attention</i>, we use the two feature maps
+  <img src="http://latex.codecogs.com/svg.latex?\phi_q" alt="\phi_q" border="0"/>,
+  <img src="http://latex.codecogs.com/svg.latex?\phi_k" alt="\phi_k" border="0"/>
+  in the primal to present the attention outputs, which are projected through the primal variables
+  <img src="http://latex.codecogs.com/svg.latex?W_{e|X}" alt="W_{e|X}" border="0"/>,
+  <img src="http://latex.codecogs.com/svg.latex?W_{r|X}" alt="W_{r|X}" border="0"/>.
+  The time and space complexity are
+  <img src="http://latex.codecogs.com/svg.latex?\mathcal{O}(Nps)" alt="\mathcal{O}(Nps)" border="0"/>
+  and 
+  <img src="http://latex.codecogs.com/svg.latex?\mathcal{O}(2Np+2ps)" alt="\mathcal{O}(2Np+2ps)" border="0"/>.
+  To align with the output size in the canonical self-attention, we add a linear map mapping from
+  <img src="http://latex.codecogs.com/svg.latex?2s" alt="2s" border="0"/>
+  to
+  <img src="http://latex.codecogs.com/svg.latex?d_v" alt="d_v" border="0"/>
+  with negligible memory increase after Primal-Attention’s output.
+  </p>
+  <h3 style="text-align:center; padding-top:1rem">
+    <!-- <a class="label label-info" href="">arXiv</a> -->
+    <a class="label label-info" href="https://arxiv.org/abs/2305.19798">arXiv</a>
+    <a class="label label-info" href="">Paper</a>
+    <a class="label label-info" href="https://github.com/yingyichen-cyy/PrimalAttention/tree/master">Code</a>
+    <a class="label label-info" href="">Video</a>
+    <a class="label label-info" href="">Poster</a>
+  </h3>
+</div>
+
+<div class="container">
+  <h3>Abstract</h3>
+  <hr/>
+  <p>
+    Recently, a new line of works has emerged to understand and improve self-attention in Transformers by treating it as a kernel machine. 
+    However, existing works apply the methods for symmetric kernels to the asymmetric self-attention, resulting in a nontrivial gap between the analytical understanding and numerical implementation. 
+    In this paper, we provide a new perspective to represent and optimize self-attention through asymmetric Kernel Singular Value Decomposition (KSVD), which is also motivated by the low-rank property of self-attention normally observed in deep layers. 
+    Through asymmetric KSVD, <img src="http://latex.codecogs.com/svg.latex?i)" alt="i)" border="0"/> a primal-dual representation of self-attention is formulated, where the optimization objective is cast to maximize the projection variances in the attention outputs; 
+    <img src="http://latex.codecogs.com/svg.latex?ii)" alt="ii)" border="0"/> a novel attention mechanism, i.e., Primal-Attention, is proposed via the primal representation of KSVD, avoiding explicit computation of the kernel matrix in the dual; 
+    <img src="http://latex.codecogs.com/svg.latex?iii)" alt="iii)" border="0"/> with KKT conditions, we prove that the stationary solution to the KSVD optimization in Primal-Attention yields a zero-value objective. 
+    In this manner, KSVD optimization can be implemented by simply minimizing a regularization loss, so that low-rank property is promoted without extra decomposition. 
+    Numerical experiments show state-of-the-art performance of our Primal-Attention with improved efficiency. 
+    Moreover, we demonstrate that the deployed KSVD optimization regularizes Primal-Attention with a sharper singular value decay than that of the canonical self-attention, further verifying the great potential of our method. 
+    To the best of our knowledge, this is the first work that provides a <i>primal-dual representation</i> for the <i>asymmetric kernel</i> in self-attention and successfully applies it to <i>modeling</i> and <i>optimization</i>.
+  </p>
+
+  <h3>Method</h3>
+  <hr/>
+  <p><h4 style="text-align: center"><u>Canonical self-attention is with asymmetric kernel</u></h4></p>
+  Let <img src="http://latex.codecogs.com/svg.latex?\{\mathbf{x}_i\in\mathbb{R}^d\}_{i=1}^N" alt="\{\mathbf{x}_i\in\mathbb{R}^d\}_{i=1}^N" border="0"/> be the input data sequence.
+  In self-attention, the queries, keys and values output the linear projections of the input sequence:
+  <center>
+    <img src="http://latex.codecogs.com/svg.latex?q(\mathbf{x}_i) = W_q \mathbf{x}_i,\quad k(\mathbf{x}_i) = W_k \mathbf{x}_i,\quad
+    v(\mathbf{x}_i) = W_v \mathbf{x}_i." alt="q(\mathbf{x}_i) = W_q \mathbf{x}_i,
+    \quad
+    k(\mathbf{x}_i) = W_k \mathbf{x}_i,
+    \quad
+    v(\mathbf{x}_i) = W_v \mathbf{x}_i." border="0"/>
+  </center>
+  The canonical self-attention is with "softmax" activation applied for bringing non-linearity and positives, yielding the attention weights:
+  <center>
+    <img src="http://latex.codecogs.com/svg.latex?\kappa (\mathbf{x}_i, \mathbf{x}_j) = \text{softmax} \left( \left< W_q \mathbf{x}_i, W_k \mathbf{x}_j\right> / \sqrt{d_k} \right), \quad i,j=1,\ldots,N," alt="\kappa (\mathbf{x}_i, \mathbf{x}_j)= \text{softmax} \left( \left< W_q \mathbf{x}_i, W_k \mathbf{x}_j\right> / \sqrt{d_k} \right), \quad i,j=1,\ldots,N," border="0"/>
+  </center>
+  where <img src="http://latex.codecogs.com/svg.latex?\kappa(\cdot,\cdot):\mathbb{R}^d\times\mathbb{R}^d\mapsto \mathbb{R}" alt="\kappa(\cdot,\cdot):\mathbb{R}^d\times\mathbb{R}^d\mapsto \mathbb{R}" border="0"/>
+  serves as the kernel function. 
+  Notice that in general, 
+  <img src="http://latex.codecogs.com/svg.latex?\left< W_q \mathbf{x}_i, W_k \mathbf{x}_j\right> \neq \left< W_q \mathbf{x}_j, W_k \mathbf{x}_i\right>" alt="\left< W_q \mathbf{x}_i, W_k \mathbf{x}_j\right> \neq \left< W_q \mathbf{x}_j, W_k \mathbf{x}_i\right>" border="0"/>,
+  leading to <b>an asymmeyric kernel</b>
+  where 
+  <img src="http://latex.codecogs.com/svg.latex?\kappa(\mathbf{x}_i, \mathbf{x}_j)\neq \kappa(\mathbf{x}_j, \mathbf{x}_i)" alt="" border="0"/>.
+  
+  </br></br>
+  <p><h4 style="text-align: center"><u>Primal-dual representation of self-attention based on KSVD</u></h4></p>
+  Canonical self-attention can be represented by the dual representation of the kernel SVD (KSVD) problem, while our method is based on the primal representation. Please refer to Section 3 in the paper for more details.
+
+  </br></br>
+  <p><b>Remark 3.3 (Primal-dual representations of KSVD in self-attention).</b> 
+  <i>In the KSVD formulations for the asymmetric kernel matrix in self-attention, with KKT conditions, the projection scores can be either represented in the primal using explicit feature maps or in the dual using  kernel functions:
+  </i>
+  <center>
+    <img src="http://latex.codecogs.com/svg.latex?
+         \textit{Primal:}\, 
+         \begin{cases}
+            e(\mathbf{x}) = W_{e|X}^\top \phi_q(\mathbf{x})
+            \\
+            r(\mathbf{x}) = W_{r|X}^\top \phi_k(\mathbf{x})
+         \end{cases},
+         \quad
+         \textit{Dual:}\, 
+         \begin{cases}
+            e(\mathbf{x}) = \sum\nolimits_{j=1}^N \mathbf{h}_{r_j} \kappa(\mathbf{x},\mathbf{x}_j) 
+            \\
+            r(\mathbf{x}) = \sum\nolimits_{i=1}^N \mathbf{h}_{e_i} \kappa(\mathbf{x}_i,\mathbf{x}) 
+         \end{cases}.
+         " alt="" border="0"/>
+  </center>
+
+  </br>
+  <p><h4 style="text-align: center"><u>Primal-Attention</u></h4></p>
+  We derive a novel attention mechanism by leveraging the primal representation of KSVD, namely, <i>Primal-Attention</i>, where two explicit feature maps <img src="http://latex.codecogs.com/svg.latex?\phi_q, \phi_k" alt="" border="0"/> are adopted. 
+  To fully exploit the asymmetry in the kernel matrix of self-attention, Primal-Attention concatenates the two sets of projections using both left and right singular vectors, and thus formulates the attention outputs as follows:
+  <center>
+    <img src="http://latex.codecogs.com/svg.latex?
+        \mathbf{o}_i := [\mathbf{e}_i; \mathbf{r}_i]
+        = \left[ W_{e|X}^\top \phi_q(\mathbf{x}_i) ; W_{r|X}^\top \phi_k(\mathbf{x}_i)\right]
+        = \left[ W_{e}^\top f(X) g_q(q(\mathbf{x}_i)) ; W_{r}^\top f(X) g_k(k(\mathbf{x}_i))\right]." 
+        alt="" border="0"/>
+  </center>
+  In Primal-Attention, the projection weights 
+  <img src="http://latex.codecogs.com/svg.latex?W_{e|X}, W_{r|X}" alt="" border="0"/> in the primal play the role as the counterparts of the values in the dual.
+  Our Primal-Attention flow is detailed in the bottom part of the teaser image.
+
+
+  <h3>Results</h3>
+  <hr/>
+  <p><font color=#27d13a>Please refer to our paper for more experiments.</font></p>
+  <p><h4 style="text-align: center"><u>Spectrum analysis of the self-attention matrix on ImageNet-1K</u></h4></p>
+  <div class="container" style="text-align:center; padding:1rem">
+    <img src="resrc/low-rank.jpg" alt="low-rank.jpg" class="text-center" style="width: 95%; max-width: 1100px">
+    <br/>
+    <p> <b>(a)-(c)</b> Plot the cumulative explained variance regarding the singular values of the attention matrix with mean and standard deviation of the chosen layers in pre-trained DeiT-Small/16 and Primal.+DeiT-Small/16 (ours): the attention matrix attains sharper singular value decays in deeper layers, also shown in <b>(d)</b>. Note that we also plot the cumulative explained variance curves of the self-attention matrix from the last layer, i.e., the 11-th layer denoted by “L[11]”, of both models in <b>(c)</b>. Our method shows an enhanced low-rank property of the attention matrix upon the baseline.
+    </p>
+  </div>
+
+
+  <h3>Resources</h3>
+  <hr/>
+  <div class="row" style="text-align: center">
+    <div class="col-xs-0 col-lg-0"></div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>arXiv</h4>
+      <a href="https://arxiv.org/abs/2305.19798" style="color:inherit"> 
+        <img src="resrc/paper.jpg" alt="paper.jpg" class="text-center" style="max-width:70%; border:0.15em solid;
+        border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>Code</h4>
+      <a href="https://github.com/yingyichen-cyy/PrimalAttention" style="color:inherit;">
+        <img src="resrc/github_repo.jpg" alt="github_repo.jpg" class="text-center"
+             style="max-width:70%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>Video</h4>
+      <a href="" style="color:inherit;">
+        <img src="" alt="github_repo.jpg" class="text-center"
+             style="max-width:70%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+  </div>
+
+    <h4 style="padding-top:0.5em">BibTeX</h4>
+    If you find this work useful for your research, please consider citing:
+    <div class="card">
+      <div class="card-block">
+        <pre class="card-text clickselect">
+          @article{chen2023primal,
+            title={Primal-Attention: Self-attention through Asymmetric Kernel SVD in Primal Representation},
+            author={Chen, Yingyi and Tao, Qinghua and Tonin, Francesco and Suykens, Johan AK},
+            journal={Advances in Neural Information Processing Systems},
+            year={2023}
+          }</pre>
+      </div>
+    </div>
+
+  <h3>Acknowledgements</h3>
+  <hr/>
+  <p>
+    This work is jointly supported by the European Research Council under the European Union’s Horizon 2020 research and innovation program/ERC Advanced Grant E-DUALITY (787960), iBOF project Tensor Tools for Taming the Curse (3E221427), Research Council KU Leuven: Optimization framework for deep kernel machines C14/18/068,  KU Leuven Grant CoE PFV/10/002, The Research Foundation–Flanders (FWO) projects: GOA4917N (Deep Restricted kernel Machines: Methods and Foundations), Ph.D./Postdoctoral grant, the Flemish Government (AI Research Program), EU H2020 ICT-48 Network TAILOR (Foundations of Trustworthy AI-Integrating Reasoning, Learning and Optimization), Leuven.AI Institute.
+  </p>
+</div>
+
+<div class="container" style="padding-top:3rem; padding-bottom:3rem">
+  <p style="text-align:center">
+  &#169; This webpage was in part inspired from this
+  <a href="https://github.com/monniert/project-webpage">template</a>.
+  </p>
+</div>
+
+</body>
+</html> 
